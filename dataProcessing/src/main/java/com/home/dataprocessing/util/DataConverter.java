@@ -9,8 +9,6 @@ public class DataConverter extends AbstractBeanField<Double, String> {
         if (value == null || value.isEmpty() || "-".equals(value)) {
             return 0.0;
         }
-
-        // Remove any non-numeric characters except '.' for decimals
         value = value.replaceAll("[^\\d.]", "");
 
         try {
