@@ -11,7 +11,7 @@ public class CsvDataDTO {
     @CsvBindByName(column = "billing_account_id")
     private String billingAccountId;
 
-    @CsvCustomBindByName(column = "cost", converter = DataConverter.class)
+    @CsvBindByName(column = "cost")
     private Double cost;
 
     @CsvCustomBindByName(column = "cost_at_list", converter = DataConverter.class)

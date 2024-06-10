@@ -2,6 +2,7 @@ package com.home.dataprocessing.service;
 
 import com.home.dataprocessing.model.CsvDataDTO;
 import com.opencsv.bean.CsvToBeanBuilder;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.io.FileReader;
@@ -12,15 +13,17 @@ import java.util.stream.Collectors;
 @Service
 public class CsvDataProcessService {
 
+    @Value("${csv.file.path}")
+    private String csvFilePath;
+
     public List<CsvDataDTO> getAllRecords() throws IOException {
-        String csvFilePath = "src/main/resources/costs_export.csv";
         try (FileReader reader = new FileReader(csvFilePath)) {
-                return new CsvToBeanBuilder<CsvDataDTO>(reader)
-                        .withType(CsvDataDTO.class)
-                        .build()
-                        .parse();
-            }
+            return new CsvToBeanBuilder<CsvDataDTO>(reader)
+                    .withType(CsvDataDTO.class)
+                    .build()
+                    .parse();
         }
+    }
 
     public double calculateTotalCost(List<CsvDataDTO> records) {
         return records.stream()
@@ -45,5 +48,5 @@ public class CsvDataProcessService {
         return records.stream()
                 .filter(record -> sku == null || sku.equals(record.getSkuId()))
                 .collect(Collectors.toList());
-        }
+    }
 }

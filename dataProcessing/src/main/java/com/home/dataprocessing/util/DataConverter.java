@@ -7,7 +7,7 @@ public class DataConverter extends AbstractBeanField<Double, String> {
     @Override
     public Double convert(String value) {
         if (value == null || value.isEmpty() || "-".equals(value)) {
-            return 0.0; // or any other default value you prefer
+            return 0.0;
         }
 
         // Remove any non-numeric characters except '.' for decimals

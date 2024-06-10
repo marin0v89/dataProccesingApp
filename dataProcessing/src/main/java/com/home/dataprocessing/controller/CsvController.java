@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.stream.Collectors;
+
 @RestController
 public class CsvController {
     @Autowired
@@ -21,15 +23,15 @@ public class CsvController {
                                @RequestParam(required = false) String sku) throws IOException {
         List<CsvDataDTO> records = csvService.getAllRecords();
 
-        if (startTime != null || endTime != null) {
-            records = csvService.filterRecordsByTime(records, startTime, endTime);
-        }
-        if (location != null) {
-            records = csvService.filterRecordsByLocation(records, location);
-        }
-        if (sku != null) {
-            records = csvService.filterRecordsBySku(records, sku);
-        }
+        records = records.stream()
+                .filter
+                        (
+                                record ->
+                                        (startTime == null || record.getUsageStartTime().compareTo(startTime) >= 0) &&
+                                                (endTime == null || record.getUsageEndTime().compareTo(endTime) <= 0) &&
+                                                (location == null || location.equals(record.getLocationLocation())) &&
+                                                (sku == null || sku.equals(record.getSkuId()))).collect(Collectors.toList()
+                );
 
         return csvService.calculateTotalCost(records);
     }
