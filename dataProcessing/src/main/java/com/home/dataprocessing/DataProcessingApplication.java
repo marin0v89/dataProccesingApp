@@ -14,7 +14,7 @@ public class DataProcessingApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(DataProcessingApplication.class, args);
 
-		logger.debug("Application Started");
+		logger.info("Application Started");
 	}
 
 }

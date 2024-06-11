@@ -23,7 +23,7 @@ public class JsonToMapConverter extends AbstractBeanField<Map<String, String>, S
 
         value = value.trim();
         if (!value.startsWith("{") || !value.endsWith("}")) {
-            logger.debug("Skipping invalid JSON: " + value);
+            logger.info("Skipping invalid JSON: " + value);
             return null;
         }
 
