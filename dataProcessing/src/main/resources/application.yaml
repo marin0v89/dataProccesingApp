@@ -5,8 +5,16 @@ spring:
     name: CsvDataProcessingApp
 logging:
   level:
-    root: INFO
-    com.home: DEBUG
+    root: info
+    com.home.dataprocessing: debug
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss} - %msg%n"
+  file:
+    name: logs/app.log
+  logback:
+    rollingpolicy:
+      file-name-pattern: logs/app-%d{yyyy-MM-dd}.log
+      max-history: 30
 csv:
   file:
     path: src/main/resources/costs_export.csv

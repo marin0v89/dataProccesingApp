@@ -1,8 +1,11 @@
 package com.home.dataprocessing.model;
 
 import com.home.dataprocessing.util.DataConverter;
+import com.home.dataprocessing.util.JsonToMapConverter;
 import com.opencsv.bean.CsvBindByName;
 import com.opencsv.bean.CsvCustomBindByName;
+
+import java.util.Map;
 
 public class CsvDataDTO {
     @CsvBindByName(column = "_id")
@@ -44,8 +47,8 @@ public class CsvDataDTO {
     @CsvBindByName(column = "invoice.month")
     private String invoiceMonth;
 
-    @CsvBindByName(column = "labels")
-    private String labels;
+    @CsvCustomBindByName(column = "labels", converter = JsonToMapConverter.class)
+    private Map<String, String> labels;
 
     @CsvBindByName(column = "location.country")
     private String locationCountry;
@@ -224,11 +227,11 @@ public class CsvDataDTO {
         this.invoiceMonth = invoiceMonth;
     }
 
-    public String getLabels() {
+    public Map<String, String> getLabels() {
         return labels;
     }
 
-    public void setLabels(String labels) {
+    public void setLabels(Map<String, String> labels) {
         this.labels = labels;
     }
 
